@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poll Detail</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'polls/styles.css' %}"
+    />
+  </head>
+  <body>
+    <form
+      action="{% url 'polls:vote' question.id %}"
+      method="post"
+      class="container"
+    >
+      <fieldset>
+        <legend><h1>{{ question.question_text }}</h1></legend>
+        {% csrf_token %}
+        <ul class="poll-options">
+          {% for choice in question.choice_set.all %}
+          <li>
+            <input
+              type="radio"
+              name="choice"
+              id="choice{{ forloop.counter }}"
+              value="{{ choice.id }}"
+            />
+            <label for="choice{{ forloop.counter }}"
+              >{{ choice.choice_text }}</label
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </fieldset>
+      <input type="submit" value="Vote" class="poll-button" />
+    </form>
+  </body>
+</html>

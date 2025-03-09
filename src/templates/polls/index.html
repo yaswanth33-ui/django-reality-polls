@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Polls</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'polls/styles.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Polls</h1>
+      {% if latest_question_list %}
+      <div class="poll-cards">
+        {% for question in latest_question_list %}
+        <div class="poll-card">
+          <a href="{% url 'polls:detail' question.id %}"
+            >{{ question.question_text }}</a
+          >
+          <ul>
+            {% for choice in question.choice_set.all %}
+            <li>
+              {{ choice.choice_text }} -
+              <span id="votes-{{ choice.id }}">{{ choice.votes }} votes</span>
+              <a class="poll-button" href="{% url 'polls:vote' question.id%}"
+                >Vote</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+          
+        </div>
+        {% endfor %}
+      </div>
+      <div style="margin-top:20px;">
+          <a href="{% url 'polls:add_question' %}">
+            <button class="poll-button">Add Question</button>
+        </a>
+      </div>
+      {% else %}
+      <p>No polls are available.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
