@@ -1,11 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-reality-polls',
+    name='django_reality_polls',
     version='0.1',
+
     packages=find_packages(),
     description='A simple Django app to conduct web-based polls.',
-    long_description=open('README.rst').read(),
+    long_description=open("README.md", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
     author='Yaswanth Reddy',
     author_email='yaswanthreddypanem@gmail.com',
     classifiers=[
